@@ -1,5 +1,5 @@
 const http = require('http');
-const { routes } = require('./routes.js');
+const routes = require('./routes.js');
 const { parseQuery, parseBody } = require('./utils.js');
 
 async function middleware(request, response){
