@@ -21,3 +21,27 @@ http.createServer(async (request, response) => {
 }).listen(3000);
 
 console.log('Server is running at http://127.0.0.1:3000/');
+
+
+// Test POST request on /data endpoint
+const postData = JSON.stringify({ test: "OK" });
+
+const options = {
+    hostname: 'localhost',
+    port: 3000,
+    path: '/data',
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(postData)
+    }
+};
+
+const req = http.request(options, (res) => {
+    let data = '';
+    res.on('data', chunk => data += chunk);
+    res.on('end', () => console.log(JSON.parse(data)));
+});
+
+req.write(postData);
+req.end();
